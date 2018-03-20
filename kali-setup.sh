@@ -5,7 +5,7 @@
 # First Make The File Executable chmod +x *.sh
 # Usage: ./kali-setup.sh 
 # Learn more at https://github.com/aryanguenthner
-# Last Updated 2018-03-01
+# Last Updated 2018-03-20
 ################################################
 echo
 # I use Pycharm for Python Programming
@@ -27,9 +27,11 @@ echo "Installing Tools"
 echo
 apt -y install build-essential nfs-common cifs-utils xutils-dev gimp vlc git gcc-6 curl openssl libreoffice git libmbim-utils terminator graphviz python-pygraphviz python-lxml python-libpcap python-qt4 python-pip python-imaging python3-dev xvfb cmake mongodb libappindicator1 open-vm-tools-desktop fuse	
 echo
-# Some of my most frequently used Git Repositories
+# Some of My Most Frequently Used Git Repositories
 cd /opt
+git clone https://github.com/portcullislabs/enum4linux.git
 echo
+cd /opt
 git clone https://github.com/Veil-Framework/Veil.git
 cd Veil/setup
 ./setup.sh -s
@@ -44,6 +46,10 @@ echo
 cd impacket
 python setup.py install
 echo
+cd /opt
+git clone https://github.com/ChrisTruncer/EyeWitness.git
+cd EyeWitness/setup
+yes | ./setup.sh
 cd /opt
 git clone https://bitbucket.org/al14s/rawr.git
 cd rawr
@@ -75,11 +81,12 @@ echo '# Kali IP' >> /root/.bashrc
 echo 'hostname -I' >> /root/.bashrc
 # Enabling SSH"
 echo "Enabling SSH"
-sed -i '32s/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+sed -i '32s/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 systemctl enable ssh
 service ssh restart
 echo
 updatedb
 echo "Rebooting"
 echo
+# Go Ducks!
 reboot
