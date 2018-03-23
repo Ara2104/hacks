@@ -2,10 +2,10 @@
 
 ################################################
 # Kali Post Setup Tested on Kali 2018.1
-# First Make The File Executable chmod +x *.sh
+# First Make This File Executable chmod +x kali-setup.sh
 # Usage: ./kali-setup.sh 
 # Learn more at https://github.com/aryanguenthner
-# Last Updated 2018-03-20
+# Last Updated 2018-03-23
 ################################################
 echo
 # I use Pycharm for Python Programming
@@ -25,11 +25,22 @@ echo
 # Installing these make life easier
 echo "Installing Tools"
 echo
-apt -y install build-essential nfs-common cifs-utils xutils-dev gimp vlc git gcc-6 curl openssl libreoffice git libmbim-utils terminator graphviz python-pygraphviz python-lxml python-libpcap python-qt4 python-pip python-imaging python3-dev xvfb cmake mongodb libappindicator1 open-vm-tools-desktop fuse	
+apt -y install build-essential nfs-common cifs-utils xutils-dev gimp vlc git gcc-6 curl openssl libreoffice git libmbim-utils terminator graphviz python-pygraphviz python-lxml python-libpcap python-qt4 python-pip python-imaging python3-dev xvfb cmake mongodb libappindicator1 libpcap-dev open-vm-tools-desktop fuse
 echo
 # Some of My Most Frequently Used Git Repositories
+mkdir /opt/bettercap
+echo
+cd /opt/bettercap
+wget https://github.com/bettercap/bettercap/releases/download/v2.3.1/bettercap_linux_amd64_2.3.1.zip
+unzip bettercap_linux_amd64_2.3.1.zip
+echo
 cd /opt
 git clone https://github.com/portcullislabs/enum4linux.git
+echo
+wget https://labs.portcullis.co.uk/download/polenum-0.2.tar.bz2
+bunzip2 polenum-0.2.tar.bz2
+tar -xvf polenum-0.2.tar 
+cp polenum-0.2/polenum.py /usr/bin/
 echo
 cd /opt
 git clone https://github.com/Veil-Framework/Veil.git
@@ -76,17 +87,20 @@ tar xvf payload_templates.txz && mv payload_templates/* pupy/payload_templates/ 
 echo
 cd /opt
 git clone https://github.com/leebaird/discover.git
-# Adding Kali IP Address to Terminal Windows"
-echo '# Kali IP' >> /root/.bashrc
-echo 'hostname -I' >> /root/.bashrc
-# Enabling SSH"
+echo
+# Enabling SSH
 echo "Enabling SSH"
 sed -i '32s/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 systemctl enable ssh
 service ssh restart
 echo
+# Adding Kali IP Address to Terminal Windows to Make Life Easier :)
+echo '# Kali IP' >> /root/.bashrc
+echo 'hostname -I' >> /root/.bashrc
+source /root/.bashrc
+echo
 updatedb
+# Go Ducks!
 echo "Rebooting"
 echo
-# Go Ducks!
 reboot
