@@ -5,10 +5,13 @@
 # First Make This File Executable chmod +x kali-setup.sh
 # Usage: ./kali-setup.sh 
 # Learn more at https://github.com/aryanguenthner
-# Last Updated 2018-03-23
+# Last Updated 2018-04-27
 ################################################
+# Configuration for a Windows 10 Host, VMWare Workstation, Kail 2018.1
+# Edit Font Scaling to 2.0 using the Tweaks Makes Kali Easy on The Eyes
+# Modify == Power Settings, Keyboard, Privacy, Screen-lock
 echo
-# I use Pycharm for Python Programming
+# I use Pycharm for Python Programming just FYI
 echo "Setting Pycharm Working Directory"
 echo "Done"
 # Make a working directory for Pycharm
@@ -16,6 +19,10 @@ mkdir /root/Desktop/python-stuff/
 # Display Kali IP Address
 echo "Kali IP Address"
 hostname -I
+echo
+# Update Nmap Scripts with http-screenshot from SpiderLabs
+cd /usr/share/nmap/scripts/
+wget https://raw.githubusercontent.com/SpiderLabs/Nmap-Tools/master/NSE/http-screenshot.nse && dos2unix *http-screenshot.nse && nmap --script-updatedb
 echo
 # Properly Update Kali
 echo "Updating Kali"
@@ -98,6 +105,13 @@ tar xvf payload_templates.txz && mv payload_templates/* pupy/payload_templates/ 
 echo
 cd /opt
 git clone https://github.com/leebaird/discover.git
+echo
+# IVRE ROCKS - An Interesting way to look at things
+cd /opt
+git clone https://github.com/cea-sec/ivre.git
+cd ivre
+python setup.py build
+sudo python setup.py install
 echo
 # Install Google Chrome Browser
 cd /tmp
